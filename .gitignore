@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+target/
+logs/
+dbt_packages/
+.user.yml
+profiles/.user.yml
+*.duckdb*
+.env
+.env.*
+!.env.example
+*credentials*.json
+*service-account*.json
+.DS_Store

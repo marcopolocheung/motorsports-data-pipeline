@@ -1,0 +1,81 @@
+version: 2
+models:
+- name: constructor_performance_mrt
+  description: 'One row per constructor: result count, wins, podiums, points and mean
+    classified finish.'
+  columns:
+  - name: constructorId
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - unique
+- name: driver_season_participation_mrt
+  description: One row per driver with season participation and supplied career statistics.
+  columns:
+  - name: driver_name
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - unique
+- name: image_sponsor_presence_mrt
+  description: One row per normalized sponsor token across image annotation metadata;
+    no images or model inference are distributed.
+  columns:
+  - name: sponsor_name
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - unique
+- name: motogp_constructor_wins_mrt
+  description: One row per constructor and season counting winning race/class records,
+    retaining multiple wins per rider.
+  columns:
+  - name: Season
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  - name: Constructor
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  data_tests:
+  - unique_combination_of_columns:
+      arguments:
+        combination_of_columns:
+        - Season
+        - Constructor
+- name: motogp_track_event_frequency_mrt
+  description: One row per track and country with supplied historical event count.
+  columns:
+  - name: Track
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  - name: Country
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  data_tests:
+  - unique_combination_of_columns:
+      arguments:
+        combination_of_columns:
+        - Track
+        - Country
+- name: race_weather_impact_mrt
+  description: One row per race with independent result and weather aggregates; descriptive
+    association, not a causal weather-impact estimate.
+  columns:
+  - name: raceId
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - unique
+- name: safety_trends_mrt
+  description: One row per season with supplied safety metrics and fatalities per
+    race; zero denominator returns null.
+  columns:
+  - name: Season
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - unique

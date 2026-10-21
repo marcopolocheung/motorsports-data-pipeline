@@ -1,0 +1,414 @@
+version: 2
+sources:
+- name: motorsports_raw
+  description: Motorsports inputs; synthetic local fixtures or user-owned BigQuery
+    tables.
+  database: '{{ target.database }}'
+  schema: '{{ target.schema ~ ''_raw'' if target.type == ''duckdb'' else env_var(''BQ_RAW_DATASET'',
+    ''motorsports_raw'') }}'
+  tables:
+  - name: circuits
+    description: Append-only raw versions of circuits.
+    columns:
+    - name: Location
+      data_type: STRING
+    - name: Track_Length_km
+      data_type: FLOAT64
+    - name: Turns
+      data_type: INT64
+    - name: Direction
+      data_type: STRING
+    - name: Circuit_Type
+      data_type: STRING
+    - name: First_Grand_Prix
+      data_type: STRING
+    - name: Last_Grand_Prix
+      data_type: STRING
+    - name: Races
+      data_type: INT64
+    - name: Best_Lap_Timing
+      data_type: STRING
+    - name: Best_Lap_Driver
+      data_type: STRING
+    - name: Best_Lap_Year
+      data_type: INT64
+    - name: Best_Lap_Time
+      data_type: FLOAT64
+    - name: high_speed_sector_ratio
+      data_type: STRING
+    - name: overtaking_difficulty
+      data_type: STRING
+    - name: track_archetype
+      data_type: STRING
+    - name: _data_source
+      data_type: STRING
+    - name: _load_time
+      data_type: TIMESTAMP
+      description: Ingestion timestamp; updates append a newer version of the same
+        source key.
+      data_tests:
+      - not_null
+  - name: constructure
+    description: Append-only raw versions of constructure.
+    columns:
+    - name: constructorId
+      data_type: INT64
+    - name: constructorRef
+      data_type: STRING
+    - name: name
+      data_type: STRING
+    - name: nationality
+      data_type: STRING
+    - name: url
+      data_type: STRING
+    - name: _load_time
+      data_type: TIMESTAMP
+      description: Ingestion timestamp; updates append a newer version of the same
+        source key.
+      data_tests:
+      - not_null
+  - name: drivers
+    description: Append-only raw versions of drivers.
+    columns:
+    - name: Driver
+      data_type: STRING
+    - name: Nationality
+      data_type: STRING
+    - name: Seasons
+      data_type: STRING
+    - name: Championships
+      data_type: FLOAT64
+    - name: Race_Entries
+      data_type: FLOAT64
+    - name: Race_Starts
+      data_type: FLOAT64
+    - name: Pole_Positions
+      data_type: FLOAT64
+    - name: Race_Wins
+      data_type: FLOAT64
+    - name: Podiums
+      data_type: FLOAT64
+    - name: Fastest_Laps
+      data_type: FLOAT64
+    - name: Points
+      data_type: FLOAT64
+    - name: Active
+      data_type: BOOL
+    - name: Championship_Years
+      data_type: STRING
+    - name: Decade
+      data_type: INT64
+    - name: Pole_Rate
+      data_type: FLOAT64
+    - name: Start_Rate
+      data_type: FLOAT64
+    - name: Win_Rate
+      data_type: FLOAT64
+    - name: Podium_Rate
+      data_type: FLOAT64
+    - name: FastLap_Rate
+      data_type: FLOAT64
+    - name: Points_Per_Entry
+      data_type: FLOAT64
+    - name: Years_Active
+      data_type: INT64
+    - name: Champion
+      data_type: BOOL
+    - name: _load_time
+      data_type: TIMESTAMP
+      description: Ingestion timestamp; updates append a newer version of the same
+        source key.
+      data_tests:
+      - not_null
+  - name: driver_seasons
+    description: Append-only raw versions of driver_seasons.
+    columns:
+    - name: Driver
+      data_type: STRING
+    - name: Season
+      data_type: INT64
+    - name: _load_time
+      data_type: TIMESTAMP
+      description: Ingestion timestamp; updates append a newer version of the same
+        source key.
+      data_tests:
+      - not_null
+  - name: wc_races
+    description: Append-only raw versions of wc_races.
+    columns:
+    - name: raceId
+      data_type: INT64
+    - name: year
+      data_type: INT64
+    - name: round
+      data_type: INT64
+    - name: circuitId
+      data_type: INT64
+    - name: name
+      data_type: STRING
+    - name: date
+      data_type: STRING
+    - name: time
+      data_type: STRING
+    - name: url
+      data_type: STRING
+    - name: fp1_date
+      data_type: STRING
+    - name: fp1_time
+      data_type: STRING
+    - name: fp2_date
+      data_type: STRING
+    - name: fp2_time
+      data_type: STRING
+    - name: fp3_date
+      data_type: STRING
+    - name: fp3_time
+      data_type: STRING
+    - name: quali_date
+      data_type: STRING
+    - name: quali_time
+      data_type: STRING
+    - name: sprint_date
+      data_type: STRING
+    - name: sprint_time
+      data_type: STRING
+    - name: _load_time
+      data_type: TIMESTAMP
+      description: Ingestion timestamp; updates append a newer version of the same
+        source key.
+      data_tests:
+      - not_null
+  - name: wc_results
+    description: Append-only raw versions of wc_results.
+    columns:
+    - name: resultId
+      data_type: INT64
+    - name: raceId
+      data_type: INT64
+    - name: driverId
+      data_type: INT64
+    - name: constructorId
+      data_type: INT64
+    - name: number
+      data_type: STRING
+    - name: grid
+      data_type: INT64
+    - name: position
+      data_type: STRING
+    - name: positionText
+      data_type: STRING
+    - name: positionOrder
+      data_type: INT64
+    - name: points
+      data_type: FLOAT64
+    - name: laps
+      data_type: INT64
+    - name: time
+      data_type: STRING
+    - name: milliseconds
+      data_type: STRING
+    - name: fastestLap
+      data_type: STRING
+    - name: rank
+      data_type: STRING
+    - name: fastestLapTime
+      data_type: STRING
+    - name: fastestLapSpeed
+      data_type: STRING
+    - name: statusId
+      data_type: INT64
+    - name: _load_time
+      data_type: TIMESTAMP
+      description: Ingestion timestamp; updates append a newer version of the same
+        source key.
+      data_tests:
+      - not_null
+  - name: weather
+    description: Append-only raw versions of weather.
+    columns:
+    - name: temperature
+      data_type: FLOAT64
+    - name: precipitation
+      data_type: FLOAT64
+    - name: windspeed
+      data_type: FLOAT64
+    - name: round
+      data_type: INT64
+    - name: name
+      data_type: STRING
+    - name: datetime
+      data_type: STRING
+    - name: _load_time
+      data_type: TIMESTAMP
+      description: Ingestion timestamp; updates append a newer version of the same
+        source key.
+      data_tests:
+      - not_null
+  - name: image_class
+    description: Append-only raw versions of image_class.
+    columns:
+    - name: team_folder
+      data_type: STRING
+    - name: image_file
+      data_type: STRING
+    - name: image_gcs_uri
+      data_type: STRING
+    - name: tire_compound_confidence
+      data_type: STRING
+    - name: primary_color
+      data_type: STRING
+    - name: tire_compound
+      data_type: STRING
+    - name: sponsors_visible
+      data_type: STRING
+    - name: _load_time
+      data_type: TIMESTAMP
+      description: Ingestion timestamp; updates append a newer version of the same
+        source key.
+      data_tests:
+      - not_null
+  - name: mg_constructure
+    description: Append-only raw versions of mg_constructure.
+    columns:
+    - name: Season
+      data_type: INT64
+    - name: Constructor
+      data_type: STRING
+    - name: Class
+      data_type: STRING
+    - name: _load_time
+      data_type: TIMESTAMP
+      description: Ingestion timestamp; updates append a newer version of the same
+        source key.
+      data_tests:
+      - not_null
+  - name: mg_finishing_positions
+    description: Append-only raw versions of mg_finishing_positions.
+    columns:
+    - name: Rider
+      data_type: STRING
+    - name: Victories
+      data_type: INT64
+    - name: NumberofSecond
+      data_type: INT64
+    - name: NumberofThird
+      data_type: INT64
+    - name: Numberof4th
+      data_type: INT64
+    - name: Numberof5th
+      data_type: INT64
+    - name: Numberof6th
+      data_type: INT64
+    - name: Country
+      data_type: STRING
+    - name: _load_time
+      data_type: TIMESTAMP
+      description: Ingestion timestamp; updates append a newer version of the same
+        source key.
+      data_tests:
+      - not_null
+  - name: mg_podium_lockouts
+    description: Append-only raw versions of mg_podium_lockouts.
+    columns:
+    - name: Season
+      data_type: INT64
+    - name: Track
+      data_type: STRING
+    - name: Riders_ Nation
+      data_type: STRING
+    - name: Class
+      data_type: STRING
+    - name: _load_time
+      data_type: TIMESTAMP
+      description: Ingestion timestamp; updates append a newer version of the same
+        source key.
+      data_tests:
+      - not_null
+  - name: mg_prix_events
+    description: Append-only raw versions of mg_prix_events.
+    columns:
+    - name: Times
+      data_type: INT64
+    - name: Track
+      data_type: STRING
+    - name: Country
+      data_type: STRING
+    - name: _load_time
+      data_type: TIMESTAMP
+      description: Ingestion timestamp; updates append a newer version of the same
+        source key.
+      data_tests:
+      - not_null
+  - name: mg_prix_winners
+    description: Append-only raw versions of mg_prix_winners.
+    columns:
+    - name: Circuit
+      data_type: STRING
+    - name: Class
+      data_type: STRING
+    - name: Constructor
+      data_type: STRING
+    - name: Country
+      data_type: STRING
+    - name: Rider
+      data_type: STRING
+    - name: Season
+      data_type: INT64
+    - name: _load_time
+      data_type: TIMESTAMP
+      description: Ingestion timestamp; updates append a newer version of the same
+        source key.
+      data_tests:
+      - not_null
+  - name: riders_info
+    description: Append-only raw versions of riders_info.
+    columns:
+    - name: Riders_All_Time_in_All_Classes
+      data_type: STRING
+    - name: Victories
+      data_type: INT64
+    - name: second_places
+      data_type: FLOAT64
+    - name: third_places
+      data_type: FLOAT64
+    - name: Pole_positions_from_74_to_2022
+      data_type: FLOAT64
+    - name: Race_fastest_lap_to_2022
+      data_type: FLOAT64
+    - name: World_Championships
+      data_type: FLOAT64
+    - name: _load_time
+      data_type: TIMESTAMP
+      description: Ingestion timestamp; updates append a newer version of the same
+        source key.
+      data_tests:
+      - not_null
+  - name: safety_fatailities
+    description: Append-only raw versions of safety_fatailities.
+    columns:
+    - name: Season
+      data_type: INT64
+    - name: Number_of_Teams
+      data_type: INT64
+    - name: Number_of_Drivers
+      data_type: INT64
+    - name: Number_of_Races
+      data_type: INT64
+    - name: Number_of_New_Regulations
+      data_type: INT64
+    - name: New_Regulations_Impacting_Aerodynamics
+      data_type: INT64
+    - name: Fatalities
+      data_type: INT64
+    - name: Average_Car_Weight
+      data_type: INT64
+    - name: DRS
+      data_type: BOOL
+    - name: Overtakes
+      data_type: INT64
+    - name: _load_time
+      data_type: TIMESTAMP
+      description: Ingestion timestamp; updates append a newer version of the same
+        source key.
+      data_tests:
+      - not_null

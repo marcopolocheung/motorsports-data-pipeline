@@ -1,0 +1,17 @@
+motorsports:
+  target: local
+  outputs:
+    local:
+      type: duckdb
+      path: "{{ env_var('DBT_DUCKDB_PATH', 'target/demo.duckdb') }}"
+      schema: demo
+      threads: 4
+    bigquery:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('BQ_PROJECT', 'your-gcp-project') }}"
+      dataset: "{{ env_var('BQ_DATASET', 'motorsports') }}"
+      location: "{{ env_var('BQ_LOCATION', 'US') }}"
+      threads: 4
+      job_execution_timeout_seconds: 300
+      maximum_bytes_billed: 1000000000

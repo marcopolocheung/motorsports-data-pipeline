@@ -1,0 +1,2 @@
+team_folder,image_file,image_gcs_uri,tire_compound_confidence,primary_color,tire_compound,sponsors_visible,_load_time
+Apex F1 Car,apex.jpg,gs://example-fixtures/apex.jpg,0.95,red,soft,"Orbit, Northstar",2026-10-01 00:00:00

@@ -1,0 +1,34 @@
+name: motorsports
+version: '1.0.0'
+config-version: 2
+profile: motorsports
+model-paths: [models]
+macro-paths: [macros]
+seed-paths: [fixtures]
+test-paths: [data_tests]
+clean-targets: [target, dbt_packages]
+flags:
+  send_anonymous_usage_stats: false
+vars:
+  lookback_days: 7
+models:
+  motorsports:
+    +on_schema_change: fail
+    stg:
+      +schema: stg
+      +materialized: incremental
+    tmp:
+      +schema: tmp
+      +materialized: table
+    norm:
+      +schema: norm
+      +materialized: table
+    mrt:
+      +schema: mrt
+      +materialized: table
+seeds:
+  motorsports:
+    +schema: raw
+    +enabled: "{{ target.type == 'duckdb' }}"
+    +column_types:
+      _load_time: timestamp

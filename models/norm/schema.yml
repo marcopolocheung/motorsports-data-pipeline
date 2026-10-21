@@ -1,0 +1,258 @@
+version: 2
+models:
+- name: Circuits
+  description: 'NORM Circuits: one row per circuit_name.'
+  columns:
+  - name: circuit_name
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - unique
+- name: Constructure
+  description: One row per constructor ID. Historical spelling retained for source
+    traceability.
+  columns:
+  - name: constructorId
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - unique
+- name: Driver_Seasons
+  description: Latest raw version for each driver/season; this source has no separate
+    staging model.
+  columns:
+  - name: driver_name
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - relationships:
+        arguments:
+          to: ref('Drivers')
+          field: driver_name
+  - name: Season
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  data_tests:
+  - unique_combination_of_columns:
+      arguments:
+        combination_of_columns:
+        - driver_name
+        - Season
+- name: Drivers
+  description: 'NORM Drivers: one row per driver_name.'
+  columns:
+  - name: driver_name
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - unique
+- name: Image_Class
+  description: 'NORM Image_Class: one row per image_id.'
+  columns:
+  - name: image_id
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - unique
+- name: Image_Sponsors
+  description: One row per image and normalized sponsor token, retaining multiple
+    sponsors per image.
+  columns:
+  - name: image_id
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - relationships:
+        arguments:
+          to: ref('Image_Class')
+          field: image_id
+  - name: sponsor_name
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  data_tests:
+  - unique_combination_of_columns:
+      arguments:
+        combination_of_columns:
+        - image_id
+        - sponsor_name
+- name: MG_Constructure
+  description: 'NORM MG_Constructure: one row per Constructor, Season, Class.'
+  columns:
+  - name: Constructor
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  - name: Season
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  - name: Class
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  data_tests:
+  - unique_combination_of_columns:
+      arguments:
+        combination_of_columns:
+        - Constructor
+        - Season
+        - Class
+- name: MG_Finishing_Positions
+  description: One latest career summary per rider, breaking same-time cross-country
+    ties by wins and podium counts.
+  columns:
+  - name: rider_id
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - unique
+    - relationships:
+        arguments:
+          to: ref('tmp_riders')
+          field: rider_id
+- name: MG_Podium_Lockouts
+  description: 'NORM MG_Podium_Lockouts: one row per Season, Track, Class, Riders_Nation.'
+  columns:
+  - name: Season
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  - name: Track
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  - name: Class
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  - name: Riders_Nation
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  data_tests:
+  - unique_combination_of_columns:
+      arguments:
+        combination_of_columns:
+        - Season
+        - Track
+        - Class
+        - Riders_Nation
+- name: MG_Prix_Events
+  description: 'NORM MG_Prix_Events: one row per Track.'
+  columns:
+  - name: Track
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - unique
+- name: MG_Prix_Winners
+  description: 'NORM MG_Prix_Winners: one row per Rider, Season, Circuit, Class.'
+  columns:
+  - name: Rider
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  - name: Season
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  - name: Circuit
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  - name: Class
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  - name: rider_id
+    description: Reference to an upstream entity.
+    data_tests:
+    - not_null
+    - relationships:
+        arguments:
+          to: ref('tmp_riders')
+          field: rider_id
+  data_tests:
+  - unique_combination_of_columns:
+      arguments:
+        combination_of_columns:
+        - Rider
+        - Season
+        - Circuit
+        - Class
+- name: Riders_Info
+  description: 'NORM Riders_Info: one row per rider_id.'
+  columns:
+  - name: rider_id
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - unique
+    - relationships:
+        arguments:
+          to: ref('tmp_riders')
+          field: rider_id
+- name: Safety_Fatailities
+  description: 'NORM Safety_Fatailities: one row per Season.'
+  columns:
+  - name: Season
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - unique
+- name: WC_Races
+  description: 'NORM WC_Races: one row per raceId.'
+  columns:
+  - name: raceId
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - unique
+- name: WC_Results
+  description: 'NORM WC_Results: one row per resultId.'
+  columns:
+  - name: resultId
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - unique
+  - name: raceId
+    description: Reference to an upstream entity.
+    data_tests:
+    - not_null
+    - relationships:
+        arguments:
+          to: ref('WC_Races')
+          field: raceId
+  - name: constructorId
+    description: Reference to an upstream entity.
+    data_tests:
+    - not_null
+    - relationships:
+        arguments:
+          to: ref('Constructure')
+          field: constructorId
+- name: Weather
+  description: 'NORM Weather: one row per round, race_name, datetime.'
+  columns:
+  - name: round
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  - name: race_name
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  - name: datetime
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  data_tests:
+  - unique_combination_of_columns:
+      arguments:
+        combination_of_columns:
+        - round
+        - race_name
+        - datetime

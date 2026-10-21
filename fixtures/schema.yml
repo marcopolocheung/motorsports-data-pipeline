@@ -1,0 +1,238 @@
+version: 2
+seeds:
+- name: raw_circuits
+  description: Invented circuits data for the local demo; not historical racing records.
+  config:
+    alias: circuits
+    column_types:
+      Location: varchar
+      Track_Length_km: double
+      Turns: bigint
+      Direction: varchar
+      Circuit_Type: varchar
+      First_Grand_Prix: varchar
+      Last_Grand_Prix: varchar
+      Races: bigint
+      Best_Lap_Timing: varchar
+      Best_Lap_Driver: varchar
+      Best_Lap_Year: bigint
+      Best_Lap_Time: double
+      high_speed_sector_ratio: varchar
+      overtaking_difficulty: varchar
+      track_archetype: varchar
+      _data_source: varchar
+      _load_time: timestamp
+- name: raw_constructure
+  description: Invented constructure data for the local demo; not historical racing
+    records.
+  config:
+    alias: constructure
+    column_types:
+      constructorId: bigint
+      constructorRef: varchar
+      name: varchar
+      nationality: varchar
+      url: varchar
+      _load_time: timestamp
+- name: raw_drivers
+  description: Invented drivers data for the local demo; not historical racing records.
+  config:
+    alias: drivers
+    column_types:
+      Driver: varchar
+      Nationality: varchar
+      Seasons: varchar
+      Championships: double
+      Race_Entries: double
+      Race_Starts: double
+      Pole_Positions: double
+      Race_Wins: double
+      Podiums: double
+      Fastest_Laps: double
+      Points: double
+      Active: boolean
+      Championship_Years: varchar
+      Decade: bigint
+      Pole_Rate: double
+      Start_Rate: double
+      Win_Rate: double
+      Podium_Rate: double
+      FastLap_Rate: double
+      Points_Per_Entry: double
+      Years_Active: bigint
+      Champion: boolean
+      _load_time: timestamp
+- name: raw_driver_seasons
+  description: Invented driver_seasons data for the local demo; not historical racing
+    records.
+  config:
+    alias: driver_seasons
+    column_types:
+      Driver: varchar
+      Season: bigint
+      _load_time: timestamp
+- name: raw_wc_races
+  description: Invented wc_races data for the local demo; not historical racing records.
+  config:
+    alias: wc_races
+    column_types:
+      raceId: bigint
+      year: bigint
+      round: bigint
+      circuitId: bigint
+      name: varchar
+      date: varchar
+      time: varchar
+      url: varchar
+      fp1_date: varchar
+      fp1_time: varchar
+      fp2_date: varchar
+      fp2_time: varchar
+      fp3_date: varchar
+      fp3_time: varchar
+      quali_date: varchar
+      quali_time: varchar
+      sprint_date: varchar
+      sprint_time: varchar
+      _load_time: timestamp
+- name: raw_wc_results
+  description: Invented wc_results data for the local demo; not historical racing
+    records.
+  config:
+    alias: wc_results
+    column_types:
+      resultId: bigint
+      raceId: bigint
+      driverId: bigint
+      constructorId: bigint
+      number: varchar
+      grid: bigint
+      position: varchar
+      positionText: varchar
+      positionOrder: bigint
+      points: double
+      laps: bigint
+      time: varchar
+      milliseconds: varchar
+      fastestLap: varchar
+      rank: varchar
+      fastestLapTime: varchar
+      fastestLapSpeed: varchar
+      statusId: bigint
+      _load_time: timestamp
+- name: raw_weather
+  description: Invented weather data for the local demo; not historical racing records.
+  config:
+    alias: weather
+    column_types:
+      temperature: double
+      precipitation: double
+      windspeed: double
+      round: bigint
+      name: varchar
+      datetime: varchar
+      _load_time: timestamp
+- name: raw_image_class
+  description: Invented image_class data for the local demo; not historical racing
+    records.
+  config:
+    alias: image_class
+    column_types:
+      team_folder: varchar
+      image_file: varchar
+      image_gcs_uri: varchar
+      tire_compound_confidence: varchar
+      primary_color: varchar
+      tire_compound: varchar
+      sponsors_visible: varchar
+      _load_time: timestamp
+- name: raw_mg_constructure
+  description: Invented mg_constructure data for the local demo; not historical racing
+    records.
+  config:
+    alias: mg_constructure
+    column_types:
+      Season: bigint
+      Constructor: varchar
+      Class: varchar
+      _load_time: timestamp
+- name: raw_mg_finishing_positions
+  description: Invented mg_finishing_positions data for the local demo; not historical
+    racing records.
+  config:
+    alias: mg_finishing_positions
+    column_types:
+      Rider: varchar
+      Victories: bigint
+      NumberofSecond: bigint
+      NumberofThird: bigint
+      Numberof4th: bigint
+      Numberof5th: bigint
+      Numberof6th: bigint
+      Country: varchar
+      _load_time: timestamp
+- name: raw_mg_podium_lockouts
+  description: Invented mg_podium_lockouts data for the local demo; not historical
+    racing records.
+  config:
+    alias: mg_podium_lockouts
+    column_types:
+      Season: bigint
+      Track: varchar
+      Riders_ Nation: varchar
+      Class: varchar
+      _load_time: timestamp
+- name: raw_mg_prix_events
+  description: Invented mg_prix_events data for the local demo; not historical racing
+    records.
+  config:
+    alias: mg_prix_events
+    column_types:
+      Times: bigint
+      Track: varchar
+      Country: varchar
+      _load_time: timestamp
+- name: raw_mg_prix_winners
+  description: Invented mg_prix_winners data for the local demo; not historical racing
+    records.
+  config:
+    alias: mg_prix_winners
+    column_types:
+      Circuit: varchar
+      Class: varchar
+      Constructor: varchar
+      Country: varchar
+      Rider: varchar
+      Season: bigint
+      _load_time: timestamp
+- name: raw_riders_info
+  description: Invented riders_info data for the local demo; not historical racing
+    records.
+  config:
+    alias: riders_info
+    column_types:
+      Riders_All_Time_in_All_Classes: varchar
+      Victories: bigint
+      second_places: double
+      third_places: double
+      Pole_positions_from_74_to_2022: double
+      Race_fastest_lap_to_2022: double
+      World_Championships: double
+      _load_time: timestamp
+- name: raw_safety_fatailities
+  description: Invented safety_fatailities data for the local demo; not historical
+    racing records.
+  config:
+    alias: safety_fatailities
+    column_types:
+      Season: bigint
+      Number_of_Teams: bigint
+      Number_of_Drivers: bigint
+      Number_of_Races: bigint
+      Number_of_New_Regulations: bigint
+      New_Regulations_Impacting_Aerodynamics: bigint
+      Fatalities: bigint
+      Average_Car_Weight: bigint
+      DRS: boolean
+      Overtakes: bigint
+      _load_time: timestamp

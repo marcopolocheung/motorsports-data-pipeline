@@ -1,0 +1,49 @@
+{
+  "engine": "DuckDB 1.4.3",
+  "models": 40,
+  "dbt_data_tests": 133,
+  "fixture_source_tables": 15,
+  "checks_passed": [
+    "baseline aggregates and null handling",
+    "weather fanout and year isolation",
+    "multiple sponsors and MotoGP race/class grains",
+    "insert and existing-key update",
+    "changed groups and removed sponsor retractions",
+    "stable image/rider identifiers after earlier-sorting inserts",
+    "weather-only update propagation",
+    "idempotent replay of all 40 models",
+    "late-arriving version inside the seven-day lookback",
+    "incremental/full-refresh parity across all 40 models"
+  ],
+  "dbt_commands": [
+    {
+      "command": "seed",
+      "successful_resources": 15
+    },
+    {
+      "command": "build --exclude resource_type:seed",
+      "successful_resources": 173
+    },
+    {
+      "command": "build --exclude resource_type:seed",
+      "successful_resources": 173
+    },
+    {
+      "command": "build --exclude resource_type:seed",
+      "successful_resources": 173
+    },
+    {
+      "command": "build --exclude resource_type:seed",
+      "successful_resources": 173
+    },
+    {
+      "command": "build --exclude resource_type:seed",
+      "successful_resources": 173
+    },
+    {
+      "command": "build --exclude resource_type:seed --full-refresh",
+      "successful_resources": 173
+    }
+  ],
+  "bigquery_execution": "Not performed; no cloud credentials or paid jobs used."
+}

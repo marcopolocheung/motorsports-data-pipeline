@@ -1,0 +1,46 @@
+version: 2
+models:
+- name: tmp_image_class_prepared
+  description: 'TMP tmp_image_class_prepared: one row per image_id.'
+  columns:
+  - name: image_id
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - unique
+- name: tmp_mg_prix_winners_constructor_mapped
+  description: 'TMP tmp_mg_prix_winners_constructor_mapped: one row per rider_name,
+    season, circuit_name, class_name.'
+  columns:
+  - name: rider_name
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  - name: season
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  - name: circuit_name
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  - name: class_name
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+  data_tests:
+  - unique_combination_of_columns:
+      arguments:
+        combination_of_columns:
+        - rider_name
+        - season
+        - circuit_name
+        - class_name
+- name: tmp_riders
+  description: 'TMP tmp_riders: one row per rider_id.'
+  columns:
+  - name: rider_id
+    description: Part of the model grain.
+    data_tests:
+    - not_null
+    - unique
