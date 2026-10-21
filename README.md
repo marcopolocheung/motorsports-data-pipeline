@@ -2,7 +2,7 @@
 
 SQL transformations for Formula 1 and MotoGP analytics using **dbt, BigQuery, Google Cloud Storage, and Python**. The project turns heterogeneous racing datasets into typed staging tables, normalized entities, and seven analytics marts. A DuckDB demo runs the same 40-model graph locally with invented sample data and no cloud account.
 
-Developed from a team project by **Marco Cheung and Pranav Pudu**, CS 333E, UT Austin, Spring 2026. Marco contributed the dbt staging/normalization work; Pranav contributed the final incremental conversion and ingestion notebook. This portfolio edition adds reproducibility and correctness improvements. See [contributions and provenance](docs/PROVENANCE.md) for the evidence and scope.
+Developed from a team project by **Marco Cheung and Pranav Pudu**, CS 333E, UT Austin, Spring 2026, added to highlight project. I contributed the dbt staging/normalization work; Pranav contributed the final incremental conversion and ingestion notebook. This portfolio edition adds reproducibility and correctness improvements. See [contributions and provenance](docs/PROVENANCE.md) for the evidence and scope.
 
 ## Run the demo
 
